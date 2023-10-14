@@ -34,13 +34,11 @@ async function getData() {
     const card = document.createElement("div");
     card.className = "col mb-5";
     card.innerHTML = `
-      <div class="card h-100">
-        <img class="card-img-top item-thumbnail" src="${item.image}" alt="${item.name}" />
+      <div class="card h-100 rounded-4 shadow">
+        <img class="img-fluid card-img-top item-thumbnail rounded-top-4 border-bottom" src="${item.image}" alt="${item.name}" />
         <div class="card-body">
-            <div class="">
-                <h6 class="fw-bolder">${item.name}</h6>
-                ${formatPrice(item.price)}
-            </div>
+          <h6 class="fw-bolder">${item.name}</h6>
+          ${formatPrice(item.price)}
         </div>
         <div class="card-footer border-top-0 bg-transparent">
         <div class="container">
