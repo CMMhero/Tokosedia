@@ -40,15 +40,15 @@ async function getData() {
           <h6 class="fw-bolder">${item.name}</h6>
           ${formatPrice(item.price)}
         </div>
-        <div class="card-footer border-top-0 bg-transparent">
+        <div class="card-footer border-top-0 bg-transparent pt-0">
         <div class="container">
-          <div class="row pb-2">
-            <div class="col input-group border rounded p-0">
+          <div class="row pb-2 gy-2">
+            <div class="col-sm-6 col-md-8 col-lg input-group border rounded p-0">
                 <button class="btn btn-sm bi-dash" onclick="decrementQuantity('${item.id}')"></button>
-                <input type="NumberFormat" class="form-control bg-transparent text-center border-0 p-1" id="${item.id}-quantity" value="1" min="1">
+                <input type="NumberFormat" class="form-control bg-transparent text-center border-0" id="${item.id}-quantity" value="1" min="1">
                 <button class="btn btn-sm bi-plus" onclick="incrementQuantity('${item.id}')"></button>
             </div>
-            <div class="col">
+            <div class="col-sm-6 col-md-8 col-lg p-0 ms-lg-2">
               <button class="btn btn-success bi-plus" onclick="addToCart('${item.id}')">
                   Cart
               </button>

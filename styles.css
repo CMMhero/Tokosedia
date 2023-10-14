@@ -1,3 +1,8 @@
+nav {
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
 .item-thumbnail {
   height: 240px;
   object-fit: cover;

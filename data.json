@@ -29,31 +29,31 @@
       "id": 5,
       "name": "",
       "price": 0,
-      "image": ""
+      "image": "images/user.png"
     },
     {
       "id": 6,
       "name": "",
       "price": 0,
-      "image": ""
+      "image": "images/user.png"
     },
     {
       "id": 7,
       "name": "",
       "price": 0,
-      "image": ""
+      "image": "images/user.png"
     },
     {
       "id": 8,
       "name": "",
       "price": 0,
-      "image": ""
+      "image": "images/user.png"
     },
     {
       "id": 9,
       "name": "",
       "price": 0,
-      "image": ""
+      "image": "images/user.png"
     }
   ]
 }
