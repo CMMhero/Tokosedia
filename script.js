@@ -49,7 +49,7 @@ async function getData() {
                 <button class="btn btn-sm bi-plus" onclick="incrementQuantity('${item.id}')"></button>
             </div>
             <div class="col-sm-6 col-md-8 col-lg p-0 ms-lg-2">
-              <button class="btn btn-success bi-plus" onclick="addToCart('${item.id}')">
+              <button class="btn btn-success bi-plus" onclick="addToCart(${item.id})">
                   Cart
               </button>
             </div>
@@ -63,16 +63,17 @@ async function getData() {
 }
 
 // Functions to increment and decrement the quantity
-function incrementQuantity(itemName) {
-  const quantityInput = document.getElementById(`${itemName}-quantity`);
-  quantityInput.value = parseInt(quantityInput.value) + 1;
+function incrementQuantity(itemId) {
+  let quantity = $(`#${itemId}-quantity`);
+  let quantityValue = parseInt(quantity.val());
+  quantity.val(quantityValue + 1);
 }
 
-function decrementQuantity(itemName) {
-  const quantityInput = document.getElementById(`${itemName}-quantity`);
-  const currentQuantity = parseInt(quantityInput.value);
-  if (currentQuantity > 0) {
-    quantityInput.value = currentQuantity - 1;
+function decrementQuantity(itemId) {
+  let quantity = $(`#${itemId}-quantity`);
+  let currentQuantity = parseInt(quantity.val());
+  if (currentQuantity > 1) {
+    quantity.val(currentQuantity - 1);
   }
 }
 
@@ -81,12 +82,14 @@ function formatPrice(price) {
 }
 
 function addToCart(item) {
-  existingItem = cart.find(cartItem => cartItem.name === item);
+  existingItem = cart.find(cartItem => cartItem.id === item);
+
+  const quantity = parseInt($(`#${item}-quantity`).val());
 
   if (existingItem) {
-    existingItem.quantity += 1;
+    existingItem.quantity += quantity;
   } else {
-    newItem = { title: item, quantity: 1 };
+    newItem = { id: item, quantity: quantity };
     cart.push(newItem);
   }
 

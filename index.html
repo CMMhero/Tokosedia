@@ -21,8 +21,10 @@
 		>
 			<div class="container-fluid mx-4 my-1">
 				<a class="navbar-brand text-success" href="#">
-					<i class="bi-shop me-2"></i>
-					<b>Tokosedia</b>
+					<h3 class="fw-bold">
+						<i class="bi-shop me-2"></i>
+						tokosedia.
+					</h3>
 				</a>
 				<button
 					class="navbar-toggler"
@@ -61,31 +63,32 @@
 						</li>
 					</ul>
 					<ul class="navbar-nav mb-2 mb-lg-0">
-						<li class="nav-item">
-							<span class="btn border-1 border-secondary-subtle me-2">
-								<i class="bi-cash me-1"></i>
-								<span id="balance">0</span>
+						<li class="nav-item d-flex">
+							<span class="btn border-1">
+								<i class="bi-cash-coin me-1"></i>
+								<span id="balance" class="badge p-1 bg-success">100.000</span>
 							</span>
-						</li>
-						<li class="nav-item">
+							<!-- </li> -->
+							<!-- <li class="nav-item"> -->
 							<a class="nav-link p-0" href="cart.html">
-								<button class="btn border-1 border-secondary-subtle me-2">
+								<button class="btn border-1 mx-2 position-relative">
 									<i class="bi-cart-fill"></i>
-									<span id="cartItems" class="badge bg-danger rounded-pill"
+									<span id="cartItems" class="badge p-1 bg-danger rounded-pill"
 										>0</span
 									>
 								</button>
 							</a>
+							<!-- </li> -->
 						</li>
 						<li class="nav-item dropdown">
 							<button
 								aria-expanded="false"
 								id="bd-theme"
-								class="btn border-1 border-secondary-subtle dropdown-toggle d-flex align-items-center"
+								class="btn border dropdown-toggle d-flex align-items-center"
 								data-bs-toggle="dropdown"
 								type="button"
 							>
-								<i class="theme-icon-active me-1"></i>
+								<i class="theme-icon-active"></i>
 							</button>
 							<ul class="dropdown-menu dropdown-menu-end p-2">
 								<li>
@@ -216,7 +219,7 @@
 			></div>
 		</div>
 
-		<footer class="p-4 bg-body-secondary">
+		<footer class="p-4 bg-body-tertiary border-top">
 			<div class="container">
 				<div class="row">
 					<div class="col">
