@@ -32,7 +32,7 @@ async function getData() {
   items = data.products;
   items.forEach(item => {
     const card = document.createElement("div");
-    card.className = "col mb-5";
+    card.className = "col mb-4";
     card.innerHTML = `
       <div class="card h-100 rounded-4 shadow">
         <img class="img-fluid card-img-top item-thumbnail rounded-top-4 border-bottom" src="${item.image}" alt="${item.name}" />
