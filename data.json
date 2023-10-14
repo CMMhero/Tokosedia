@@ -1,0 +1,59 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "ASUS ROG STRIX RTX 4090 OC 24GB GDDR6X",
+      "price": 36900000,
+      "description": "ROG Strix GeForce RTX® 4090 OC Edition 24GB GDDR6X",
+      "image": "https://images.tokopedia.net/img/cache/700/VqbcmM/2022/10/12/035c6f02-f027-4005-93a6-e1ca0de652d5.png.webp?ect=4g"
+    },
+    {
+      "id": 2,
+      "name": "Apple iPhone 15 Pro Max 256GB",
+      "price": 25000000,
+      "image": "https://switch.com.ph/cdn/shop/files/ROSA_iPhone_15_Pro_Max_Black_Titanium_PDP_Image_Position-1A_Black_Titanium_Color.jpg?v=1696934529"
+    },
+    {
+      "id": 3,
+      "name": "Xiaomi 13T 12/256GB",
+      "price": 6500000,
+      "image": "https://cdn.dxomark.com/wp-content/uploads/medias/post-155619/Xiaomi-13T_featured-image-packshot-review-Recovered-Recovered.jpg"
+    },
+    {
+      "id": 4,
+      "name": "Samsung Galaxy S23 Ultra 512GB",
+      "price": 22000000,
+      "image": "https://media.dinomarket.com/docs/imgTD/2023-06/s23_ultra_green_100623090625_ll.jpg.jpg"
+    },
+    {
+      "id": 5,
+      "name": "",
+      "price": 0,
+      "image": ""
+    },
+    {
+      "id": 6,
+      "name": "",
+      "price": 0,
+      "image": ""
+    },
+    {
+      "id": 7,
+      "name": "",
+      "price": 0,
+      "image": ""
+    },
+    {
+      "id": 8,
+      "name": "",
+      "price": 0,
+      "image": ""
+    },
+    {
+      "id": 9,
+      "name": "",
+      "price": 0,
+      "image": ""
+    }
+  ]
+}

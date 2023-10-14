@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Home</title>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+		/>
+		<link href="styles.css" rel="stylesheet" />
+	</head>
+	<body>
+		<nav
+			class="navbar navbar-expand-lg border-bottom py-2 bg-body-tertiary sticky-top"
+		>
+			<div class="container">
+				<a class="navbar-brand text-success" href="#">
+					<i class="bi-shop me-2"></i>
+					<b>Tokosedia</b>
+				</a>
+				<button
+					class="navbar-toggler"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#navbarSupportedContent"
+					aria-controls="navbarSupportedContent"
+					aria-expanded="false"
+					aria-label="Toggle navigation"
+				>
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item">
+							<a class="nav-link active" aria-current="page" href="#">Home</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="about.html">About</a>
+						</li>
+					</ul>
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item">
+								<div class="input-group">
+									<input
+										id="query"
+										class="form-control"
+										type="search"
+										placeholder="Search"
+										aria-label="Search"
+									/>
+									<button
+										id="search"
+										class="input-group-text"
+										type="submit"
+									>
+										<i class="bi-search"></i>
+									</button>
+								</div>
+						</li>
+					</ul>
+					<ul class="navbar-nav mb-2 mb-lg-0">
+						<li class="nav-item">
+							<span class="btn border-1 border-secondary-subtle me-2">
+								<i class="bi-cash me-1"></i>
+								<span id="balance">0</span>
+							</span>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link p-0" href="cart.html">
+								<button class="btn border-1 border-secondary-subtle me-2">
+									<i class="bi-cart-fill"></i>
+									<span id="cartItems" class="badge bg-danger rounded-pill"
+										>0</span
+									>
+								</button>
+							</a>
+						</li>
+						<li class="nav-item dropdown">
+							<button
+								aria-expanded="false"
+								id="bd-theme"
+								class="btn border-1 border-secondary-subtle dropdown-toggle d-flex align-items-center"
+								data-bs-toggle="dropdown"
+								type="button"
+							>
+								<i class="theme-icon-active me-1"></i>
+							</button>
+							<ul class="dropdown-menu dropdown-menu-end p-2">
+								<li>
+									<button
+										class="rounded dropdown-item align-items-center mb-1"
+										data-bs-theme-value="light"
+										type="button"
+									>
+										<i
+											class="bi-sun-fill me-2"
+											data-theme-icon="bi-sun-fill"
+										></i>
+										Light
+									</button>
+								</li>
+								<li>
+									<button
+										class="rounded dropdown-item d-flex align-items-center mb-1"
+										data-bs-theme-value="dark"
+										type="button"
+									>
+										<i
+											class="bi-moon-stars-fill me-2"
+											data-theme-icon="bi-moon-stars-fill"
+										></i>
+										Dark
+									</button>
+								</li>
+								<li>
+									<button
+										class="rounded dropdown-item d-flex align-items-center"
+										data-bs-theme-value="auto"
+										type="button"
+									>
+										<i
+											class="bi-circle-half me-2"
+											data-theme-icon="bi-circle-half"
+										></i>
+										Auto
+									</button>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+		<!-- Header-->
+		<header class="bg-dark py-5">
+			<div class="container px-4 px-lg-5 my-5">
+				<div
+					id="carouselExampleCaptions"
+					class="carousel slide"
+					data-bs-ride="carousel"
+				>
+					<div class="carousel-indicators">
+						<button
+							type="button"
+							data-bs-target="#carouselExampleCaptions"
+							data-bs-slide-to="0"
+							class="active"
+							aria-current="true"
+							aria-label="Slide 1"
+						></button>
+						<button
+							type="button"
+							data-bs-target="#carouselExampleCaptions"
+							data-bs-slide-to="1"
+							aria-label="Slide 2"
+						></button>
+						<button
+							type="button"
+							data-bs-target="#carouselExampleCaptions"
+							data-bs-slide-to="2"
+							aria-label="Slide 3"
+						></button>
+					</div>
+					<div class="container rounded carousel-inner text-center">
+						<div class="carousel-item active">
+							<img
+								src="images/user.png"
+								class="img-fluid rounded-4"
+								alt="..."
+							/>
+							<div
+								class="carousel-caption d-none d-md-block bg-black bg-gradient bg-opacity-50"
+							>
+								<h5>First slide label</h5>
+								<p>
+									Some representative placeholder content for the first slide.
+								</p>
+							</div>
+						</div>
+						<div class="carousel-item">
+							<img
+								src="images/user.png"
+								class="img-fluid rounded-4"
+								alt="..."
+							/>
+							<div class="carousel-caption d-none d-md-block">
+								<h5>Second slide label</h5>
+								<p>
+									Some representative placeholder content for the second slide.
+								</p>
+							</div>
+						</div>
+						<div class="carousel-item">
+							<img
+								src="images/user.png"
+								class="img-fluid rounded-4"
+								alt="..."
+							/>
+							<div class="carousel-caption d-none d-md-block">
+								<h5>Third slide label</h5>
+								<p>
+									Some representative placeholder content for the third slide.
+								</p>
+							</div>
+						</div>
+					</div>
+					<button
+						class="carousel-control-prev"
+						type="button"
+						data-bs-target="#carouselExampleCaptions"
+						data-bs-slide="prev"
+					>
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Previous</span>
+					</button>
+					<button
+						class="carousel-control-next"
+						type="button"
+						data-bs-target="#carouselExampleCaptions"
+						data-bs-slide="next"
+					>
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Next</span>
+					</button>
+				</div>
+				<div class="text-center text-white">
+					<h1 class="display-4 fw-bolder">Shop in style</h1>
+					<p class="lead fw-normal text-white-50 mb-0">
+						With this shop hompeage template
+					</p>
+				</div>
+			</div>
+		</header>
+		<!-- Section-->
+		<section class="py-5">
+			<div class="container px-4 px-lg-5 mt-5">
+				<div
+					class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
+					id="items"
+				>
+				</div>
+			</div>
+		</section>
+		<!-- Footer-->
+		<footer class="py-5 bg-dark">
+			<div class="container">
+				<p class="m-0 text-white">Christopher Matthew Marvelio - 00000043324</p>
+			</div>
+		</footer>
+	</body>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+		crossorigin="anonymous"
+	></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<script src="theme.js"></script>
+	<script src="script.js"></script>
+</html>
