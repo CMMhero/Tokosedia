@@ -62,16 +62,16 @@
 							</div>
 						</li>
 					</ul>
-					<ul class="navbar-nav mb-2 mb-lg-0">
+					<ul class="navbar-nav mb-2 mb-lg-0 border-end p-0">
 						<li class="nav-item d-flex">
-							<span class="btn border-1">
+							<button class="btn btn-outline-secondary" id="nav-balance">
 								<i class="bi-cash-coin me-1"></i>
 								<span id="balance" class="badge p-1 bg-success">100.000</span>
-							</span>
+							</button>
 							<!-- </li> -->
 							<!-- <li class="nav-item"> -->
 							<a class="nav-link p-0" href="cart.html">
-								<button class="btn border-1 mx-2 position-relative">
+								<button class="btn mx-2 btn-outline-secondary">
 									<i class="bi-cart-fill"></i>
 									<span id="cartItems" class="badge p-1 bg-danger rounded-pill"
 										>0</span
@@ -80,11 +80,17 @@
 							</a>
 							<!-- </li> -->
 						</li>
+					</ul>
+					<ul class="navbar-nav mb-2 mb-lg-0">
+						<button class="btn mx-2 btn-primary" id="nav-login">Login</button>
+						<button class="btn mx-2 btn-primary" id="nav-logout">Logout</button>
+					</ul>
+					<ul class="navbar-nav mb-2 mb-lg-0">
 						<li class="nav-item dropdown">
 							<button
 								aria-expanded="false"
 								id="bd-theme"
-								class="btn border dropdown-toggle d-flex align-items-center"
+								class="btn dropdown-toggle d-flex align-items-center border"
 								data-bs-toggle="dropdown"
 								type="button"
 							>
@@ -139,7 +145,7 @@
 
 		<!-- Header-->
 		<header>
-			<div class="container my-5">
+			<div class="container px-4 px-lg-5 my-5">
 				<div
 					id="carouselExampleCaptions"
 					class="carousel slide"

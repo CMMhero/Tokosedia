@@ -1,9 +1,11 @@
+let isLoggedIn = localStorage.getItem("loggedIn") || false;
 let username = localStorage.getItem("username") || "";
 let balance = 0;
 let cart = localStorage.getItem("cart") || [];
 let cartLength = 0;
 
 getData();
+loadNavbar();
 loadCart();
 document.name = document.name + " | Tokosedia";
 
@@ -13,13 +15,18 @@ $("#loginForm").submit(function (event) {
   const password = $("#password").val();
 
   localStorage.setItem("username", username);
-  localStorage.setItem("loggedIn", "true");
+  localStorage.setItem("loggedIn", true);
   window.location.href = "index.html";
 });
 
+$("#nav-login").click(function () {
+  window.location.href = "login.html";
+});
+
 // Handle the logout button
-$("#logout").click(function () {
-  localStorage.setItem("loggedIn", "false");
+$("#nav-logout").click(function () {
+  localStorage.setItem("loggedIn", false);
+  localStorage.setItem("username", "");
   window.location.href = "login.html";
 });
 
@@ -82,6 +89,8 @@ function formatPrice(price) {
 }
 
 function addToCart(item) {
+  if (isLoggedIn == "false") window.location.href = "login.html";
+
   existingItem = cart.find(cartItem => cartItem.id === item);
 
   const quantity = parseInt($(`#${item}-quantity`).val());
@@ -107,6 +116,20 @@ function saveCart() {
 }
 
 function loadCart() {
+  if (isLoggedIn == "false") return;
+
   cart = JSON.parse(localStorage.getItem("cart")) || [];
   updateCart();
+}
+
+function loadNavbar() {
+  if (isLoggedIn == "true") {
+    $("#nav-balance").show();
+    $("#nav-login").hide();
+    $("#nav-logout").show();
+  } else {
+    $("#nav-balance").hide();
+    $("#nav-login").show();
+    $("#nav-logout").hide();
+  }
 }
