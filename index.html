@@ -20,7 +20,7 @@
 			class="navbar navbar-expand-lg border-bottom py-2 bg-body-tertiary sticky-top bg-opacity-75"
 		>
 			<div class="container-fluid mx-4 my-1">
-				<a class="navbar-brand text-success" href="#">
+				<a class="navbar-brand text-success" href="index.html">
 					<h3 class="fw-bold">
 						<i class="bi-shop me-2"></i>
 						tokosedia.
@@ -40,7 +40,9 @@
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 						<li class="nav-item">
-							<a class="nav-link active" aria-current="page" href="#">Home</a>
+							<a class="nav-link active" href="index.html"
+								>Home</a
+							>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="about.html">About</a>
@@ -70,14 +72,12 @@
 							</button>
 							<!-- </li> -->
 							<!-- <li class="nav-item"> -->
-							<a class="nav-link p-0" href="cart.html">
-								<button class="btn mx-2 btn-outline-secondary">
-									<i class="bi-cart-fill"></i>
-									<span id="cartItems" class="badge p-1 bg-danger rounded-pill"
-										>0</span
-									>
-								</button>
-							</a>
+							<button class="btn mx-2 btn-outline-secondary" id="nav-cart">
+								<i class="bi-cart-fill"></i>
+								<span id="cartItems" class="badge p-1 bg-danger rounded-pill"
+									>0</span
+								>
+							</button>
 							<!-- </li> -->
 						</li>
 					</ul>
@@ -143,7 +143,6 @@
 			</div>
 		</nav>
 
-		<!-- Header-->
 		<header>
 			<div class="container px-4 px-lg-5 my-5">
 				<div
@@ -218,11 +217,14 @@
 			</div>
 		</header>
 
-		<div class="container px-4 px-lg-5 mt-5">
+		<div class="container px-4 px-lg-5 my-5">
 			<div
 				class="row gx-4 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
 				id="items"
 			></div>
+		</div>
+
+		<div id="notification" class="container px-4 px-lg-5 my-5 sticky-bottom p-2">
 		</div>
 
 		<footer class="p-4 bg-body-tertiary border-top">

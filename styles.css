@@ -8,6 +8,12 @@ nav {
   object-fit: cover;
 }
 
+.item-thumbnail-vertical {
+  object-fit: cover;
+  width: 240px;
+  height: 240px;
+}
+
 .promo-image {
   object-fit: cover;
 }

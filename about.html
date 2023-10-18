@@ -15,8 +15,140 @@
 		<link href="styles.css" rel="stylesheet" />
 	</head>
 	<body>
-    <h1>About Me</h1>
-  </body>
+		<nav
+			class="navbar navbar-expand-lg border-bottom py-2 bg-body-tertiary sticky-top bg-opacity-75"
+		>
+			<div class="container-fluid mx-4 my-1">
+				<a class="navbar-brand text-success" href="index.html">
+					<h3 class="fw-bold">
+						<i class="bi-shop me-2"></i>
+						tokosedia.
+					</h3>
+				</a>
+				<button
+					class="navbar-toggler"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#navbarSupportedContent"
+					aria-controls="navbarSupportedContent"
+					aria-expanded="false"
+					aria-label="Toggle navigation"
+				>
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item">
+							<a class="nav-link" href="index.html"
+								>Home</a
+							>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="about.html">About</a>
+						</li>
+					</ul>
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item">
+							<div class="input-group">
+								<input
+									id="query"
+									class="form-control"
+									type="search"
+									placeholder="Search"
+									aria-label="Search"
+								/>
+								<button id="search" class="input-group-text" type="submit">
+									<i class="bi-search"></i>
+								</button>
+							</div>
+						</li>
+					</ul>
+					<ul class="navbar-nav mb-2 mb-lg-0 border-end p-0">
+						<li class="nav-item d-flex">
+							<button class="btn btn-outline-secondary" id="nav-balance">
+								<i class="bi-cash-coin me-1"></i>
+								<span id="balance" class="badge p-1 bg-success">100.000</span>
+							</button>
+							<!-- </li> -->
+							<!-- <li class="nav-item"> -->
+							<a class="nav-link p-0" href="cart.html">
+								<button class="btn mx-2 btn-outline-secondary">
+									<i class="bi-cart-fill"></i>
+									<span id="cartItems" class="badge p-1 bg-danger rounded-pill"
+										>0</span
+									>
+								</button>
+							</a>
+							<!-- </li> -->
+						</li>
+					</ul>
+					<ul class="navbar-nav mb-2 mb-lg-0">
+						<button class="btn mx-2 btn-primary" id="nav-login">Login</button>
+						<button class="btn mx-2 btn-primary" id="nav-logout">Logout</button>
+					</ul>
+					<ul class="navbar-nav mb-2 mb-lg-0">
+						<li class="nav-item dropdown">
+							<button
+								aria-expanded="false"
+								id="bd-theme"
+								class="btn dropdown-toggle d-flex align-items-center border"
+								data-bs-toggle="dropdown"
+								type="button"
+							>
+								<i class="theme-icon-active"></i>
+							</button>
+							<ul class="dropdown-menu dropdown-menu-end p-2">
+								<li>
+									<button
+										class="rounded dropdown-item align-items-center mb-1"
+										data-bs-theme-value="light"
+										type="button"
+									>
+										<i
+											class="bi-sun-fill me-2"
+											data-theme-icon="bi-sun-fill"
+										></i>
+										Light
+									</button>
+								</li>
+								<li>
+									<button
+										class="rounded dropdown-item d-flex align-items-center mb-1"
+										data-bs-theme-value="dark"
+										type="button"
+									>
+										<i
+											class="bi-moon-stars-fill me-2"
+											data-theme-icon="bi-moon-stars-fill"
+										></i>
+										Dark
+									</button>
+								</li>
+								<li>
+									<button
+										class="rounded dropdown-item d-flex align-items-center"
+										data-bs-theme-value="auto"
+										type="button"
+									>
+										<i
+											class="bi-circle-half me-2"
+											data-theme-icon="bi-circle-half"
+										></i>
+										Auto
+									</button>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<header>
+			<div class="container px-4 px-lg-5 my-5">
+				<h1>About Me</h1>
+			</div>
+		</header>
+	</body>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
