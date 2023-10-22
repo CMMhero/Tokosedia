@@ -99,6 +99,7 @@ function incrementQuantityCart(itemId) {
 
   updateCart();
   saveCart();
+  updateTotal();
 }
 
 function decrementQuantityCart(itemId) {
@@ -115,6 +116,7 @@ function decrementQuantityCart(itemId) {
 
   updateCart();
   saveCart();
+  updateTotal();
 }
 
 function formatPrice(price) {
@@ -175,6 +177,31 @@ async function loadCartItems() {
     );
   })
 
+  updateTotal();
+}
+
+async function updateTotal() {
+  let totalItems = 0;
+  let totalPrice = 0;
+
+  for (const item of cart) {
+    itemDetail = await findCartItemById(item.id);
+    totalItems += item.quantity;
+    totalPrice += itemDetail.price * item.quantity;
+  }
+
+  $("#total").html(
+    `
+      <div class="col sticky-div">
+        <div class="card mb-4 h-100 rounded-4 shadow">
+          <div class="card-body">
+            <h6 class="card-title fw-bolder">${totalItems} Items</h6>
+            <p class="card-text">${formatPrice(totalPrice)}</p>
+          </div>
+        </div>
+      </div>
+    `
+  );
 }
 
 async function cartNotification(id, quantity) {
