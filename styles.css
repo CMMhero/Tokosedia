@@ -4,7 +4,7 @@ nav {
 }
 
 #loginCard {
-	width:50vw;
+	width: 50vw;
 }
 
 .item-thumbnail {
@@ -14,12 +14,22 @@ nav {
 
 .item-thumbnail-small {
 	object-fit: cover;
-  width: 100px;
+	width: 100px;
 	height: 100px;
 }
 
 .input-cart {
-	width:120px;
+	width: 120px;
+}
+
+.input-number {
+	-moz-appearance: textfield;
+}
+
+.input-number::-webkit-outer-spin-button,
+.input-number::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
 }
 
 .promo-image {

@@ -27,33 +27,51 @@
     },
     {
       "id": 5,
-      "name": "",
-      "price": 0,
-      "image": "images/user.png"
+      "name": "ICARUS V2 Ultralight Gaming Mouse by Press Play",
+      "price": 600000,
+      "image": "https://images.tokopedia.net/img/cache/700/VqbcmM/2023/9/25/f987b909-6d8b-4d96-b57f-2300faa52ccc.jpg.webp?ect=4g"
     },
     {
       "id": 6,
-      "name": "",
-      "price": 0,
-      "image": "images/user.png"
+      "name": "Noir Timeless82 75% Wireless OLED Mechanical Keyboard Gasket Mount PBT",
+      "price": 1450000,
+      "image": "https://images.tokopedia.net/img/cache/500-square/VqbcmM/2023/6/19/32661165-ec64-4ff5-9142-4a33344a9aa6.jpg.webp?ect=4g"
     },
     {
       "id": 7,
-      "name": "",
-      "price": 0,
-      "image": "images/user.png"
+      "name": "Fantech MAXFIT81 Wireless 75% Mechanical Keyboard Gaming PBT",
+      "price": 1400000,
+      "image": "https://images.tokopedia.net/img/cache/700/VqbcmM/2023/7/7/b252695b-d202-437d-b356-30122c90c00b.jpg.webp?ect=4g"
     },
     {
       "id": 8,
-      "name": "",
-      "price": 0,
-      "image": "images/user.png"
+      "name": "Noir M1 Lightweight Wireless Modular Gaming Mouse",
+      "price": 600000,
+      "image": "https://images.tokopedia.net/img/cache/500-square/VqbcmM/2023/8/20/9da2505d-9bdf-4623-88e6-d28e8ac32f7b.jpg.webp?ect=4g"
     },
     {
       "id": 9,
-      "name": "",
-      "price": 0,
-      "image": "images/user.png"
+      "name": "AOC 24G2SPE Adaptive Sync Gaming Monitor (23.8\"/1ms/IPS/165hz/FHD)",
+      "price": 1820000,
+      "image": "https://images.tokopedia.net/img/cache/700/VqbcmM/2022/11/15/6784df35-22f7-4bfe-b823-31dc1308cadd.jpg.webp?ect=4g"
+    },
+    {
+      "id": 10,
+      "name": "realme Buds Air 3 [Dual mic noise cancellation, 30 hour total]",
+      "price": 620000,
+      "image": "https://images.tokopedia.net/img/cache/700/VqbcmM/2022/10/27/332f301f-7331-41e3-ac8c-c16e6a2ecdda.jpg.webp?ect=4g"
+    },
+    {
+      "id": 11,
+      "name": "ASROCK AMD RADEON RX 7900 XT 20GB GDDR6",
+      "price": 15290000,
+      "image": "https://images.tokopedia.net/img/cache/700/VqbcmM/2022/12/24/8b24b2c4-68a0-49c4-881e-f0ad36944d15.png.webp?ect=4g"
+    },
+    {
+      "id": 12,
+      "name": "SONY WH-1000XM5 Wireless Noise Cancelling Headphone",
+      "price": 5000000,
+      "image": "https://images.tokopedia.net/img/cache/700/VqbcmM/2023/4/17/7d4d09d1-6ed9-4ad0-8730-c69c10cc3827.jpg.webp?ect=4g"
     }
   ]
 }

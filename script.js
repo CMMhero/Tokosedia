@@ -35,7 +35,6 @@ $("#nav-logout").click(function () {
 });
 
 $(".cart-item-quantity").change(function () {
-  console.log("nice");
   let quantity = $(`#${itemId}-quantity`);
   let currentQuantity = parseInt(quantity.val());
 
@@ -70,7 +69,7 @@ async function getData() {
                 <div class="row pb-2 gy-2">
                   <div class="col-sm-6 col-md-8 col-lg input-group border rounded p-0">
                       <button class="btn btn-sm bi-dash" onclick="decrementQuantity('${item.id}')"></button>
-                      <input type="NumberFormat" class="form-control bg-transparent text-center border-0" id="${item.id}-quantity" value="1" min="1">
+                      <input type="number" class="input-number form-control bg-transparent text-center border-0" id="${item.id}-quantity" value="1" min="1">
                       <button class="btn btn-sm bi-plus" onclick="incrementQuantity('${item.id}')"></button>
                   </div>
                   <div class="col-sm-6 col-md-8 col-lg p-0 ms-lg-2">
@@ -135,6 +134,33 @@ function decrementQuantityCart(itemId) {
   updateTotal();
 }
 
+function updateQuantityCart(itemId) {
+  let quantity = $(`#${itemId}-quantity`);
+  let currentQuantity = parseInt(quantity.val());
+
+  if (currentQuantity <= 0) return;
+
+  let cartItem = cart.find(item => item.id == itemId);
+  if (cartItem) {
+    cartItem.quantity = currentQuantity;
+  }
+
+  updateCart();
+  saveCart();
+  updateTotal();
+}
+
+function checkItemCart(itemId) {
+  let cartItem = cart.find(item => item.id == itemId);
+  if (cartItem) {
+    cartItem.checked = !cartItem.checked;
+  }
+
+  updateCart();
+  saveCart();
+  updateTotal();
+}
+
 function deleteItemFromCart(itemId) {
   cart = cart.filter(item => item.id != itemId);
 
@@ -180,18 +206,18 @@ async function loadCartItems() {
         <div class="mb-3">
           <div class="card rounded-4 shadow-sm">
             <div class="d-flex p-3 align-items-center overflow-hidden">
-              <input class="form-check-input border-secondary border-2 me-3" type="checkbox" ${item.checked == true ? 'checked' : 'unchecked'}>
+              <input class="form-check-input border-secondary border-2 me-3" type="checkbox" ${item.checked == true ? 'checked' : 'unchecked'} onchange="checkItemCart('${item.id}')">
               <img class="img-fluid rounded item-thumbnail-small border shadow-sm" src="${itemDetail.image}" alt="${itemDetail.name}" />
               <div class="ms-3 ms-lg-4">
                 <h6 class="card-title fw-bolder">${itemDetail.name}</h6>
                 <p class="card-text">${formatPrice(itemDetail.price)}</p>
                 <div class="d-flex">
                 <div class="input-group border rounded p-0 input-cart">
-                  <button class="btn btn-sm bi-dash" onclick="decrementQuantityCart('${itemDetail.id}')"></button>
-                  <input type="NumberFormat" class="cart-item-quantity form-control bg-transparent text-center border-0" id="${itemDetail.id}-quantity" value="${item.quantity}" min="1">
-                  <button class="btn btn-sm bi-plus" onclick="incrementQuantityCart('${itemDetail.id}')"></button>
+                  <button class="btn btn-sm bi-dash" onclick="decrementQuantityCart('${item.id}')"></button>
+                  <input type="number" class="input-number form-control bg-transparent text-center border-0" id="${item.id}-quantity" value="${item.quantity}" min="1" onchange="updateQuantityCart('${item.id}')">
+                  <button class="btn btn-sm bi-plus" onclick="incrementQuantityCart('${item.id}')"></button>
                 </div>
-                <button class="btn btn-outline-danger ms-2" onclick="deleteItemFromCart('${itemDetail.id}')">
+                <button class="btn btn-outline-danger ms-2" onclick="deleteItemFromCart('${item.id}')">
                   <i class="bi-trash-fill"></i>
                 </button>
                 </div>
