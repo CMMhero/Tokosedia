@@ -3,15 +3,23 @@ nav {
 	backdrop-filter: blur(16px);
 }
 
-.item-thumbnail {
-	height: 240px;
-	object-fit: cover;
+#loginCard {
+	width:50vw;
 }
 
-.item-thumbnail-vertical {
+.item-thumbnail {
 	object-fit: cover;
-	height: 100%;
-  width: 100%;
+	height: 240px;
+}
+
+.item-thumbnail-small {
+	object-fit: cover;
+  width: 100px;
+	height: 100px;
+}
+
+.input-cart {
+	width:120px;
 }
 
 .promo-image {

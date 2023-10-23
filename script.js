@@ -28,11 +28,27 @@ $("#nav-login").click(function () {
   window.location.href = "login.html";
 });
 
-// Handle the logout button
 $("#nav-logout").click(function () {
   localStorage.setItem("loggedIn", false);
   localStorage.setItem("username", "");
   window.location.href = "login.html";
+});
+
+$(".cart-item-quantity").change(function () {
+  console.log("nice");
+  let quantity = $(`#${itemId}-quantity`);
+  let currentQuantity = parseInt(quantity.val());
+
+  if (currentQuantity <= 1) return;
+
+  let cartItem = cart.find(item => item.id == itemId);
+  if (cartItem) {
+    cartItem.quantity = currentQuantity;
+  }
+
+  saveCart();
+  updateTotal();
+  updateCart();
 });
 
 async function getData() {
@@ -106,7 +122,7 @@ function decrementQuantityCart(itemId) {
   let quantity = $(`#${itemId}-quantity`);
   let currentQuantity = parseInt(quantity.val());
 
-  if (currentQuantity <= 0) return
+  if (currentQuantity <= 1) return
   quantity.val(currentQuantity - 1);
 
   let cartItem = cart.find(item => item.id == itemId);
@@ -117,6 +133,15 @@ function decrementQuantityCart(itemId) {
   updateCart();
   saveCart();
   updateTotal();
+}
+
+function deleteItemFromCart(itemId) {
+  cart = cart.filter(item => item.id != itemId);
+
+  updateCart();
+  saveCart();
+  updateTotal();
+  loadCartItems();
 }
 
 function formatPrice(price) {
@@ -132,8 +157,9 @@ function addToCart(item) {
 
   if (existingItem) {
     existingItem.quantity += quantity;
+    existingItem.checked = true;
   } else {
-    newItem = { id: item, quantity: quantity };
+    newItem = { id: item, quantity: quantity, checked: true };
     cart.push(newItem);
   }
 
@@ -143,31 +169,31 @@ function addToCart(item) {
 }
 
 async function loadCartItems() {
+  $("#cart-items").html("");
+
   cart.forEach(async item => {
     itemDetail = await findCartItemById(item.id);
 
+
     $("#cart-items").append(
       `
-        <div class="col mb-4">
-          <div class="card mb-4 h-100 rounded-4 shadow">
-            <div class="row">
-              <div class="col-3">
-                <img class="img-fluid card-img-start item-thumbnail-vertical rounded-start-4 border-end" src="${itemDetail.image}" alt="${itemDetail.name}" />
-              </div>
-              <div class="col-9">
-                <div class="card-body">
-                  <h6 class="card-title fw-bolder">${itemDetail.name}</h6>
-                  <p class="card-text">${formatPrice(itemDetail.price)}</p>
-                  <div class="container">
-                  <div class="row pb-2 gy-2">
-                    <div class="col-sm-6 col-md-8 col-lg input-group border rounded p-0">
-                        <button class="btn btn-sm bi-dash" onclick="decrementQuantityCart('${itemDetail.id}')"></button>
-                        <input type="NumberFormat" class="form-control bg-transparent text-center border-0" id="${itemDetail.id}-quantity" value="${item.quantity}" min="1">
-                        <button class="btn btn-sm bi-plus" onclick="incrementQuantityCart('${itemDetail.id}')"></button>
-                    </div>
-                    <div class="col-sm-6 col-md-8 col-lg">
-                    </div>
-                  </div>
+        <div class="mb-3">
+          <div class="card rounded-4 shadow-sm">
+            <div class="d-flex p-3 align-items-center overflow-hidden">
+              <input class="form-check-input border-secondary border-2 me-3" type="checkbox" ${item.checked == true ? 'checked' : 'unchecked'}>
+              <img class="img-fluid rounded item-thumbnail-small border shadow-sm" src="${itemDetail.image}" alt="${itemDetail.name}" />
+              <div class="ms-3 ms-lg-4">
+                <h6 class="card-title fw-bolder">${itemDetail.name}</h6>
+                <p class="card-text">${formatPrice(itemDetail.price)}</p>
+                <div class="d-flex">
+                <div class="input-group border rounded p-0 input-cart">
+                  <button class="btn btn-sm bi-dash" onclick="decrementQuantityCart('${itemDetail.id}')"></button>
+                  <input type="NumberFormat" class="cart-item-quantity form-control bg-transparent text-center border-0" id="${itemDetail.id}-quantity" value="${item.quantity}" min="1">
+                  <button class="btn btn-sm bi-plus" onclick="incrementQuantityCart('${itemDetail.id}')"></button>
+                </div>
+                <button class="btn btn-outline-danger ms-2" onclick="deleteItemFromCart('${itemDetail.id}')">
+                  <i class="bi-trash-fill"></i>
+                </button>
                 </div>
               </div>
             </div>
@@ -177,6 +203,21 @@ async function loadCartItems() {
     );
   })
 
+  if (!cart.length) {
+    $("#cart-items").append(
+      `
+      <div class="mb-3">
+        <div class="card rounded-4 shadow-sm">
+          <div class="p-3 align-items-center">
+            <h5>You have no items in your cart</h5>
+            Start by adding some recommended items
+          </div>
+        </div>
+      </div>
+      `
+    );
+  }
+
   updateTotal();
 }
 
@@ -185,14 +226,16 @@ async function updateTotal() {
   let totalPrice = 0;
 
   for (const item of cart) {
-    itemDetail = await findCartItemById(item.id);
-    totalItems += item.quantity;
-    totalPrice += itemDetail.price * item.quantity;
+    if (item.checked == true) {
+      itemDetail = await findCartItemById(item.id);
+      totalItems += item.quantity;
+      totalPrice += itemDetail.price * item.quantity;
+    }
   }
 
   $("#total").html(
     `
-      <div class="col sticky-div">
+      <div class="sticky-div">
         <div class="card mb-4 h-100 rounded-4 shadow">
           <div class="card-body">
             <h6 class="card-title fw-bolder">${totalItems} Items</h6>
@@ -208,12 +251,12 @@ async function cartNotification(id, quantity) {
   const item = await findCartItemById(id);
 
   const alertHtml = `
-    <div class="alert alert-success alert-dismissible fade show m-4" role="alert">
-      <i class="bi-check-circle-fill me-2"></i>
-      Added ${quantity}x <strong>${item.name}</strong> to cart!
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-  `;
+  <div class="alert alert-success alert-dismissible fade show m-4" role="alert">
+    <i class="bi-check-circle-fill me-2"></i>
+    Added ${quantity}x <strong>${item.name}</strong> to cart!
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+    `;
 
   $('#notification').append(alertHtml);
 

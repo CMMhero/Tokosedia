@@ -15,35 +15,52 @@
 		<link href="styles.css" rel="stylesheet" />
 	</head>
 	<body>
-	
-		<div class="container px-4 px-lg-5 my-5">
-			<div class="card p-5 my-5">
-				<h2 class="mb-5">Login</h2>
-
-				<div class="form-group">
-					<form id="loginForm">
-						<div class="form-floating mb-3">
-							<input
-								type="text"
-								class="form-control"
-								id="username"
-								placeholder="Username"
-							/>
-							<label for="username">Username</label>
+		<div class="d-flex justify-content-center align-items-center vh-100">
+			<div id="loginCard" class="container px-4 px-lg-5 my-5">
+				<div class="card p-5 my-5">
+					<div class="row d-flex justify-content-center align-items-center">
+						<div class="col-lg-4 mb-4 mb-lg-0">
+							<div class="row">
+								<div class="col-12 text-center">
+									<h3 class="fw-bold text-success">
+										<i class="bi-shop me-2"></i>
+										tokosedia.
+									</h3>
+								</div>
+							</div>
 						</div>
+						<div class="col-lg-8 px-5">
+							<h2 class="mb-5">Login</h2>
 
-						<div class="form-floating mb-3">
-							<input
-								type="password"
-								class="form-control"
-								id="password"
-								placeholder="Password"
-							/>
-							<label for="password">Password</label>
+							<div class="form-group">
+								<form id="loginForm">
+									<div class="form-floating mb-3">
+										<input
+											type="text"
+											class="form-control"
+											id="username"
+											placeholder="Username"
+											required
+										/>
+										<label for="username">Username</label>
+									</div>
+
+									<div class="form-floating mb-3">
+										<input
+											type="password"
+											class="form-control"
+											id="password"
+											placeholder="Password"
+											required
+										/>
+										<label for="password">Password</label>
+									</div>
+
+									<button type="submit" class="btn btn-primary col-12">Login</button>
+								</form>
+							</div>
 						</div>
-
-						<button type="submit" class="btn btn-primary">Login</button>
-					</form>
+					</div>
 				</div>
 			</div>
 		</div>
