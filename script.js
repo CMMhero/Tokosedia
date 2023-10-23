@@ -1,6 +1,6 @@
 let isLoggedIn = localStorage.getItem("loggedIn") || false;
 let username = localStorage.getItem("username") || "";
-let balance = 0;
+let balance = localStorage.getItem("balance") || 1000000;
 let cart = localStorage.getItem("cart") || [];
 let cartLength = 0;
 
@@ -8,6 +8,7 @@ getData();
 loadNavbar();
 loadCart();
 loadCartItems();
+loadBalance();
 
 $("#loginForm").submit(function (event) {
   event.preventDefault();
@@ -161,13 +162,17 @@ function checkItemCart(itemId) {
   updateTotal();
 }
 
-function deleteItemFromCart(itemId) {
+function deleteItemFromCart(itemId, button) {
   cart = cart.filter(item => item.id != itemId);
+  $(button).closest('div.cart-item').fadeOut(500, function () {
+    $(this).remove();
+  });
 
   updateCart();
   saveCart();
   updateTotal();
-  loadCartItems();
+
+  if (!cart.length) loadCartItems();
 }
 
 function formatPrice(price) {
@@ -203,7 +208,7 @@ async function loadCartItems() {
 
     $("#cart-items").append(
       `
-        <div class="mb-3">
+        <div class="mb-3 cart-item">
           <div class="card rounded-4 shadow-sm">
             <div class="d-flex p-3 align-items-center overflow-hidden">
               <input class="form-check-input border-secondary border-2 me-3" type="checkbox" ${item.checked == true ? 'checked' : 'unchecked'} onchange="checkItemCart('${item.id}')">
@@ -217,7 +222,7 @@ async function loadCartItems() {
                   <input type="number" class="input-number form-control bg-transparent text-center border-0" id="${item.id}-quantity" value="${item.quantity}" min="1" onchange="updateQuantityCart('${item.id}')">
                   <button class="btn btn-sm bi-plus" onclick="incrementQuantityCart('${item.id}')"></button>
                 </div>
-                <button class="btn btn-outline-danger ms-2" onclick="deleteItemFromCart('${item.id}')">
+                <button class="btn btn-outline-danger ms-2" onclick="deleteItemFromCart('${item.id}', this)">
                   <i class="bi-trash-fill"></i>
                 </button>
                 </div>
@@ -273,24 +278,30 @@ async function updateTotal() {
   );
 }
 
+let toastCount = 0; // Counter for unique toast IDs
+
 async function cartNotification(id, quantity) {
   const item = await findCartItemById(id);
 
+  const toastId = `cart-toast-${toastCount++}`;
+
   const alertHtml = `
-  <div class="alert alert-success alert-dismissible fade show m-4" role="alert">
-    <i class="bi-check-circle-fill me-2"></i>
-    Added ${quantity}x <strong>${item.name}</strong> to cart!
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>
-    `;
+    <div class="toast text-bg-primary" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="2000" id="${toastId}">
+      <div class="d-flex">
+        <div class="toast-body">
+          <i class="bi-check-circle-fill me-2"></i>
+          Added ${quantity}x <strong>${item.name}</strong> to cart!
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  `;
 
   $('#notification').append(alertHtml);
 
-  setTimeout(function () {
-    $(`.alert`).alert('close');
-  }, 2000);
+  const toastElement = $(`#${toastId}`);
+  bootstrap.Toast.getOrCreateInstance(toastElement).show();
 }
-
 
 async function findCartItemById(id) {
   const response = await fetch("data.json");
@@ -304,7 +315,6 @@ async function findCartItemById(id) {
     return null;
   }
 }
-
 
 function updateCart() {
   const totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
@@ -320,6 +330,10 @@ function loadCart() {
 
   cart = JSON.parse(localStorage.getItem("cart")) || [];
   updateCart();
+}
+
+function loadBalance() {
+  $("#balance").text(formatPrice(balance));
 }
 
 function loadNavbar() {
