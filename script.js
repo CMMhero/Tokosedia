@@ -15,7 +15,7 @@ loadBalance();
 $("#loginForm").submit(function (event) {
   event.preventDefault();
   const username = $("#username").val();
-  const password = $("#password").val();
+  // const password = $("#password").val();
 
   localStorage.setItem("username", username);
   localStorage.setItem("loggedIn", true);
@@ -71,11 +71,11 @@ $("#nav-logout").click(function () {
   window.location.href = "login.html";
 });
 
-function transaction(amount) {
+function transactionNotification(amount) {
   html =
     `
     <div class="modal fade" id="transaction-modal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header border-0">
             <h1 class="modal-title fs-5">Transaction Successful</h1>
@@ -111,28 +111,7 @@ function topUp() {
 
   $('#topup-modal').modal('hide');
 
-  topUpNotification();
-}
-
-function topUpNotification() {
-  const toastId = `topup-toast-${toastCount++}`;
-
-  const alertHtml = `
-    <div class="toast text-bg-success" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="2000" id="${toastId}">
-      <div class="d-flex">
-        <div class="toast-body">
-          <i class="bi-check-circle-fill me-2"></i>
-          Topup of <strong>${formatPrice(amount)}</strong> successful.
-        </div>
-        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-      </div>
-    </div>
-  `;
-
-  $('#notification').append(alertHtml);
-
-  const toastElement = $(`#${toastId}`);
-  bootstrap.Toast.getOrCreateInstance(toastElement).show();
+  showToast(`Topup of <strong>${formatPrice(amount)}</strong> successful.`, "bi-check-circle-fill", "text-bg-success");
 }
 
 function loadHeader() {
@@ -352,7 +331,7 @@ function checkOut(price) {
   }
 
   if (balance < price) {
-    alert("Balance is not sufficient")
+    showToast("Insufficient balance. Please topup.", "bi-x-circle-fill", "text-bg-danger")
     return;
   }
 
@@ -366,7 +345,7 @@ function checkOut(price) {
   loadCartItems();
   loadBalance();
 
-  transaction(price);
+  transactionNotification(price);
 }
 
 async function loadCartItems() {
@@ -475,47 +454,13 @@ async function updateTotal() {
 async function cartNotification(id, quantity) {
   const item = await findCartItemById(id);
 
-  const toastId = `cart-toast-${toastCount++}`;
-
-  const alertHtml = `
-    <div class="toast text-bg-primary" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="2000" id="${toastId}">
-      <div class="d-flex">
-        <div class="toast-body">
-          <i class="bi-check-circle-fill me-2"></i>
-          Added ${quantity}x <strong>${item.name}</strong> to cart!
-        </div>
-        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-      </div>
-    </div>
-  `;
-
-  $('#notification').append(alertHtml);
-
-  const toastElement = $(`#${toastId}`);
-  bootstrap.Toast.getOrCreateInstance(toastElement).show();
+  showToast(`Added ${quantity}x <strong>${item.name}</strong> to cart!`, "bi-check-circle-fill", "text-bg-primary")
 }
 
 async function deleteNotification(id) {
   const item = await findCartItemById(id);
 
-  const toastId = `cart-toast-${toastCount++}`;
-
-  const alertHtml = `
-    <div class="toast text-bg-danger" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="2000" id="${toastId}">
-      <div class="d-flex">
-        <div class="toast-body">
-          <i class="bi-check-circle-fill me-2"></i>
-          Deleted <strong>${item.name}</strong> from cart
-        </div>
-        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-      </div>
-    </div>
-  `;
-
-  $('#notification').append(alertHtml);
-
-  const toastElement = $(`#${toastId}`);
-  bootstrap.Toast.getOrCreateInstance(toastElement).show();
+  showToast(`Deleted <strong>${item.name}</strong> from cart`, "bi-check-circle-fill", "text-bg-danger")
 }
 
 async function findCartItemById(id) {
@@ -529,6 +474,27 @@ async function findCartItemById(id) {
   } else {
     return null;
   }
+}
+
+function showToast(message, icon, textBackground) {
+  const toastId = `toast-${toastCount++}`;
+
+  const alertHtml = `
+    <div class="toast ${textBackground}" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="2000" id="${toastId}">
+      <div class="d-flex">
+        <div class="toast-body">
+          <i class="${icon} me-2"></i>
+          ${message}
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  `;
+
+  $('#notification').append(alertHtml);
+
+  const toastElement = $(`#${toastId}`);
+  bootstrap.Toast.getOrCreateInstance(toastElement).show();
 }
 
 function updateCart() {
