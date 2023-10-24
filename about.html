@@ -39,53 +39,36 @@
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 						<li class="nav-item">
-							<a class="nav-link" href="index.html"
-								>Home</a
-							>
+							<a class="nav-link active" href="index.html">Home</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link active" href="about.html">About</a>
+							<a class="nav-link" href="about.html">About</a>
 						</li>
 					</ul>
-					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-						<li class="nav-item">
-							<div class="input-group">
-								<input
-									id="query"
-									class="form-control"
-									type="search"
-									placeholder="Search"
-									aria-label="Search"
-								/>
-								<button id="search" class="input-group-text" type="submit">
-									<i class="bi-search"></i>
-								</button>
-							</div>
-						</li>
-					</ul>
-					<ul class="navbar-nav mb-2 mb-lg-0 border-end p-0">
+					<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 						<li class="nav-item d-flex">
-							<button class="btn btn-outline-secondary" id="nav-balance">
+							<button class="btn p-0" id="nav-balance">
 								<i class="bi-cash-coin me-1"></i>
 								<span id="balance" class="badge p-1 bg-success">100.000</span>
 							</button>
 							<!-- </li> -->
 							<!-- <li class="nav-item"> -->
-							<a class="nav-link p-0" href="cart.html">
-								<button class="btn mx-2 btn-outline-secondary">
-									<i class="bi-cart-fill"></i>
-									<span id="cartItems" class="badge p-1 bg-danger rounded-pill"
-										>0</span
-									>
-								</button>
-							</a>
+							<button class="btn p-0 mx-2" id="nav-cart">
+								<i class="bi-cart-fill"></i>
+								<span id="cartItems" class="badge p-1 bg-danger rounded-pill"
+									>0</span
+								>
+							</button>
+							<div class="border-end"></div>
 							<!-- </li> -->
+							<button class="btn mx-2 btn-primary" id="nav-login">Login</button>
+							<button class="btn mx-2 btn-primary" id="nav-logout">
+								Logout
+							</button>
 						</li>
 					</ul>
-					<ul class="navbar-nav mb-2 mb-lg-0">
-						<button class="btn mx-2 btn-primary" id="nav-login">Login</button>
-						<button class="btn mx-2 btn-primary" id="nav-logout">Logout</button>
-					</ul>
+					<!-- <ul class="navbar-nav mb-2 mb-lg-0">
+					</ul> -->
 					<ul class="navbar-nav mb-2 mb-lg-0">
 						<li class="nav-item dropdown">
 							<button
@@ -152,18 +135,21 @@
 				tokosedia
 				<br/>
 				<br/>
-				Made By
+				Made By:
 				<br/>
 				Christopher Matthew Marvelio
 				<br/>
 				00000043324
 				<br/>
 				<br/>
-				Tools:
+				Made With:
 				<br/>
-				HTML, CSS, JS, Bootstrap, Jquery
+				HTML, CSS, JS
+				<br/>
+				Bootstrap, jQuery
 			</div>
 		</header>
+
 	</body>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"

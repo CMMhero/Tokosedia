@@ -6,6 +6,7 @@ let cartLength = 0;
 
 loadData();
 loadNavbar();
+loadHeader();
 loadCart();
 loadCartItems();
 loadBalance();
@@ -21,7 +22,7 @@ $("#loginForm").submit(function (event) {
 });
 
 $("#nav-cart").click(function () {
-  if (isLoggedIn == "false") window.location.href = "login.html";
+  if (isLoggedIn == "false") return window.location.href = "login.html";
   window.location.href = "cart.html";
 });
 
@@ -34,6 +35,14 @@ $("#nav-logout").click(function () {
   localStorage.setItem("username", "");
   window.location.href = "login.html";
 });
+
+function loadHeader() {
+  if (isLoggedIn == "false") return;
+
+  $("#user").html(`
+    <h3 class="mb-4">Welcome, ${username}</h3>
+  `);
+}
 
 async function loadData() {
   const response = await fetch("data.json");
@@ -74,7 +83,7 @@ async function loadData() {
 
 async function loadRecommended(categories) {
   $("#recommended-items").html("");
-  
+
   const response = await fetch("data.json");
   const data = await response.json();
   items = data.products;
