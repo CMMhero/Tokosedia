@@ -177,7 +177,7 @@ async function loadRecommended() {
   items = data.products;
 
   shuffle(items);
-  let recommendedItems = items.slice(0, 8);
+  let recommendedItems = items.slice(0, 9);
 
   recommendedItems.forEach(item => {
     $("#recommended-items").append(
