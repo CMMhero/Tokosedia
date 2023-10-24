@@ -35,22 +35,6 @@ $("#nav-logout").click(function () {
   window.location.href = "login.html";
 });
 
-$(".cart-item-quantity").change(function () {
-  let quantity = $(`#${itemId}-quantity`);
-  let currentQuantity = parseInt(quantity.val());
-
-  if (currentQuantity <= 1) return;
-
-  let cartItem = cart.find(item => item.id == itemId);
-  if (cartItem) {
-    cartItem.quantity = currentQuantity;
-  }
-
-  saveCart();
-  updateTotal();
-  updateCart();
-});
-
 async function loadData() {
   const response = await fetch("data.json");
   const data = await response.json();
@@ -68,14 +52,65 @@ async function loadData() {
               <div class="card-footer border-top-0 bg-transparent pt-0">
               <div class="container">
                 <div class="row pb-2 gy-2">
-                  <div class="col-sm-6 col-md-8 col-lg input-group border rounded p-0">
-                      <button class="btn btn-sm bi-dash" onclick="decrementQuantity('${item.id}')"></button>
-                      <input type="number" class="input-number form-control bg-transparent text-center border-0" id="${item.id}-quantity" value="1" min="1">
-                      <button class="btn btn-sm bi-plus" onclick="incrementQuantity('${item.id}')"></button>
+                  <div class="input-cart col-sm-6 col-md-8 col-lg-8 col-xl input-group border rounded p-0">
+                      <button class="btn btn-sm bi-dash px-1" onclick="decrementQuantity('${item.id}')"></button>
+                      <input type="number" class="input-number form-control bg-transparent text-center border-0 px-1" id="${item.id}-quantity" value="1" min="1">
+                      <button class="btn btn-sm bi-plus px-1" onclick="incrementQuantity('${item.id}')"></button>
                   </div>
-                  <div class="col-sm-6 col-md-8 col-lg p-0 ms-lg-2">
-                    <button class="btn btn-success bi-plus" onclick="addToCart(${item.id})">
-                        Cart
+                  <div class="col-sm-6 col-md-8 col-lg-8 col-xl p-0 ms-xl-2">
+                    <button class="btn btn-success" onclick="addToCart(${item.id})">
+                      + Cart
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `
+    )
+  });
+}
+
+async function loadRecommended(categories) {
+  $("#recommended-items").html("");
+  
+  const response = await fetch("data.json");
+  const data = await response.json();
+  items = data.products;
+  let recommendedItems = [];
+
+  if (!categories.length) {
+    recommendedItems = items;
+  } else {
+    recommendedItems = items.filter(item => categories.includes(item.category) && !cart.some(cartItem => cartItem.id == item.id));
+  }
+
+  if (!recommendedItems.length) {
+    recommendedItems = items;
+  }
+
+  recommendedItems.forEach(item => {
+    $("#recommended-items").append(
+      `
+        <div class="col gy-4 id="recommended-item-id-${item.id}"">
+          <div class="card h-100 rounded-4 shadow">
+              <img class="img-fluid card-img-top item-thumbnail rounded-top-4 border-bottom" src="${item.image}" alt="${item.name}" />
+              <div class="card-body">
+                <h6 class="fw-bolder">${item.name}</h6>
+                ${formatPrice(item.price)}
+              </div>
+              <div class="card-footer border-top-0 bg-transparent pt-0">
+              <div class="container">
+                <div class="row pb-2 gy-2">
+                  <div class="input-cart col-sm-6 col-md-8 col-lg-8 col-xl input-group border rounded p-0">
+                      <button class="btn btn-sm bi-dash px-1" onclick="decrementQuantity('${item.id}')"></button>
+                      <input type="number" class="input-number form-control bg-transparent text-center border-0 px-1" id="${item.id}-quantity" value="1" min="1">
+                      <button class="btn btn-sm bi-plus px-1" onclick="incrementQuantity('${item.id}')"></button>
+                  </div>
+                  <div class="col-sm-6 col-md-8 col-lg-8 col-xl p-0 ms-xl-2">
+                    <button class="btn btn-success" onclick="addToCart(${item.id})">
+                      + Cart
                     </button>
                   </div>
                 </div>
@@ -225,15 +260,19 @@ function checkOut(price) {
 }
 
 async function loadCartItems() {
+  let categories = [];
   $("#cart-items").html("");
 
   cart.forEach(async item => {
     itemDetail = await findCartItemById(item.id);
 
+    if (!categories.includes(itemDetail.category)) {
+      categories.push(itemDetail.category);
+    }
 
     $("#cart-items").append(
       `
-        <div class="mb-3 cart-item">
+        <div class="mb-3 cart-item" id="cart-item-id-${item.id}">
           <div class="card rounded-4 shadow-sm">
             <div class="d-flex p-3 align-items-center overflow-hidden">
               <input class="form-check-input border-secondary border-2 me-3" type="checkbox" ${item.checked == true ? 'checked' : 'unchecked'} onchange="checkItemCart('${item.id}')">
@@ -243,9 +282,9 @@ async function loadCartItems() {
                 <p class="card-text">${formatPrice(itemDetail.price)}</p>
                 <div class="d-flex">
                 <div class="input-group border rounded p-0 input-cart">
-                  <button class="btn btn-sm bi-dash" onclick="decrementQuantityCart('${item.id}')"></button>
+                  <button class="btn btn-sm bi-dash px-1" onclick="decrementQuantityCart('${item.id}')"></button>
                   <input type="number" class="input-number form-control bg-transparent text-center border-0" id="${item.id}-cart-quantity" value="${item.quantity}" min="1" onchange="updateQuantityCart('${item.id}')">
-                  <button class="btn btn-sm bi-plus" onclick="incrementQuantityCart('${item.id}')"></button>
+                  <button class="btn btn-sm bi-plus px-1" onclick="incrementQuantityCart('${item.id}')"></button>
                 </div>
                 <button class="btn btn-outline-danger ms-2" onclick="deleteItemFromCart('${item.id}', this)">
                   <i class="bi-trash-fill"></i>
@@ -274,6 +313,7 @@ async function loadCartItems() {
     );
   }
 
+  loadRecommended(categories);
   updateTotal();
 }
 

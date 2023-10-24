@@ -40,39 +40,21 @@
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 						<li class="nav-item">
-							<a class="nav-link active" href="index.html"
-								>Home</a
-							>
+							<a class="nav-link active" href="index.html">Home</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="about.html">About</a>
 						</li>
 					</ul>
-					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-						<li class="nav-item">
-							<div class="input-group">
-								<input
-									id="query"
-									class="form-control"
-									type="search"
-									placeholder="Search"
-									aria-label="Search"
-								/>
-								<button id="search" class="input-group-text" type="submit">
-									<i class="bi-search"></i>
-								</button>
-							</div>
-						</li>
-					</ul>
-					<ul class="navbar-nav mb-2 mb-lg-0 p-0">
+					<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 						<li class="nav-item d-flex">
-							<button class="btn" id="nav-balance">
+							<button class="btn p-0" id="nav-balance">
 								<i class="bi-cash-coin me-1"></i>
 								<span id="balance" class="badge p-1 bg-success">100.000</span>
 							</button>
 							<!-- </li> -->
 							<!-- <li class="nav-item"> -->
-							<button class="btn mx-2" id="nav-cart">
+							<button class="btn p-0 mx-2" id="nav-cart">
 								<i class="bi-cart-fill"></i>
 								<span id="cartItems" class="badge p-1 bg-danger rounded-pill"
 									>0</span
@@ -81,7 +63,9 @@
 							<div class="border-end"></div>
 							<!-- </li> -->
 							<button class="btn mx-2 btn-primary" id="nav-login">Login</button>
-							<button class="btn mx-2 btn-primary" id="nav-logout">Logout</button>
+							<button class="btn mx-2 btn-primary" id="nav-logout">
+								Logout
+							</button>
 						</li>
 					</ul>
 					<!-- <ul class="navbar-nav mb-2 mb-lg-0">
@@ -220,13 +204,15 @@
 
 		<div class="container px-4 px-lg-5 my-5">
 			<div
-				class="row gx-4 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
+				class="row gx-4 row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 justify-content-start"
 				id="items"
 			></div>
 		</div>
 
-		<div id="notification" class="toast-container position-fixed bottom-0 end-0 p-3">
-		</div>
+		<div
+			id="notification"
+			class="toast-container position-fixed bottom-0 end-0 p-3"
+		></div>
 
 		<footer class="p-4 bg-body-tertiary border-top">
 			<div class="container">

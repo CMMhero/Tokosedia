@@ -3,75 +3,115 @@
     {
       "id": 1,
       "name": "ASUS ROG STRIX RTX 4090 OC 24GB GDDR6X",
-      "price": 36900000,
+      "category": "GPU & Monitor",
+      "price": 36899000,
       "description": "ROG Strix GeForce RTX® 4090 OC Edition 24GB GDDR6X",
       "image": "https://images.tokopedia.net/img/cache/700/VqbcmM/2022/10/12/035c6f02-f027-4005-93a6-e1ca0de652d5.png.webp?ect=4g"
     },
     {
       "id": 2,
       "name": "Apple iPhone 15 Pro Max 256GB",
-      "price": 25000000,
+      "category": "Smartphone",
+      "price": 24999000,
       "image": "https://switch.com.ph/cdn/shop/files/ROSA_iPhone_15_Pro_Max_Black_Titanium_PDP_Image_Position-1A_Black_Titanium_Color.jpg?v=1696934529"
     },
     {
       "id": 3,
       "name": "Xiaomi 13T 12/256GB",
-      "price": 6500000,
+      "category": "Smartphone",
+      "price": 6499000,
       "image": "https://cdn.dxomark.com/wp-content/uploads/medias/post-155619/Xiaomi-13T_featured-image-packshot-review-Recovered-Recovered.jpg"
     },
     {
       "id": 4,
       "name": "Samsung Galaxy S23 Ultra 512GB",
-      "price": 22000000,
+      "category": "Smartphone",
+      "price": 21999000,
       "image": "https://media.dinomarket.com/docs/imgTD/2023-06/s23_ultra_green_100623090625_ll.jpg.jpg"
     },
     {
       "id": 5,
       "name": "ICARUS V2 Ultralight Gaming Mouse by Press Play",
-      "price": 600000,
+      "category": "Mouse",
+      "price": 599000,
       "image": "https://images.tokopedia.net/img/cache/700/VqbcmM/2023/9/25/f987b909-6d8b-4d96-b57f-2300faa52ccc.jpg.webp?ect=4g"
     },
     {
       "id": 6,
       "name": "Noir Timeless82 75% Wireless OLED Mechanical Keyboard Gasket Mount PBT",
-      "price": 1450000,
+      "category": "Keyboard",
+      "price": 1499000,
       "image": "https://images.tokopedia.net/img/cache/500-square/VqbcmM/2023/6/19/32661165-ec64-4ff5-9142-4a33344a9aa6.jpg.webp?ect=4g"
     },
     {
       "id": 7,
       "name": "Fantech MAXFIT81 Wireless 75% Mechanical Keyboard Gaming PBT",
-      "price": 1400000,
+      "category": "Keyboard",
+      "price": 1399000,
       "image": "https://images.tokopedia.net/img/cache/700/VqbcmM/2023/7/7/b252695b-d202-437d-b356-30122c90c00b.jpg.webp?ect=4g"
     },
     {
       "id": 8,
       "name": "Noir M1 Lightweight Wireless Modular Gaming Mouse",
-      "price": 600000,
+      "category": "Mouse",
+      "price": 599000,
       "image": "https://images.tokopedia.net/img/cache/500-square/VqbcmM/2023/8/20/9da2505d-9bdf-4623-88e6-d28e8ac32f7b.jpg.webp?ect=4g"
     },
     {
       "id": 9,
       "name": "AOC 24G2SPE Adaptive Sync Gaming Monitor (23.8\"/1ms/IPS/165hz/FHD)",
-      "price": 1820000,
+      "category": "GPU & Monitor",
+      "price": 1819000,
       "image": "https://images.tokopedia.net/img/cache/700/VqbcmM/2022/11/15/6784df35-22f7-4bfe-b823-31dc1308cadd.jpg.webp?ect=4g"
     },
     {
       "id": 10,
       "name": "realme Buds Air 3 [Dual mic noise cancellation, 30 hour total]",
-      "price": 620000,
+      "category": "Audio",
+      "price": 619000,
       "image": "https://images.tokopedia.net/img/cache/700/VqbcmM/2022/10/27/332f301f-7331-41e3-ac8c-c16e6a2ecdda.jpg.webp?ect=4g"
     },
     {
       "id": 11,
-      "name": "ASROCK AMD RADEON RX 7900 XT 20GB GDDR6",
-      "price": 15290000,
-      "image": "https://images.tokopedia.net/img/cache/700/VqbcmM/2022/12/24/8b24b2c4-68a0-49c4-881e-f0ad36944d15.png.webp?ect=4g"
+      "name": "VGA XFX SPEEDSTER QICK 319 AMD Radeon RX 6700 XT 12GB",
+      "category": "GPU & Monitor",
+      "price": 4699000,
+      "image": "https://images.tokopedia.net/img/cache/700/VqbcmM/2023/8/12/5469759c-e165-4c4f-bf9a-8d34ff4ab232.jpg.webp?ect=4g"
     },
     {
       "id": 12,
       "name": "SONY WH-1000XM5 Wireless Noise Cancelling Headphone",
-      "price": 5000000,
+      "category": "Audio",
+      "price": 4699000,
       "image": "https://images.tokopedia.net/img/cache/700/VqbcmM/2023/4/17/7d4d09d1-6ed9-4ad0-8730-c69c10cc3827.jpg.webp?ect=4g"
+    },
+    {
+      "id": 13,
+      "name": "VortexSeries INNO X1 Super Light Wireless Gaming Mouse",
+      "category": "Mouse",
+      "price": 549000,
+      "image": "https://images.tokopedia.net/img/cache/700/VqbcmM/2023/10/15/e6968dcd-af4f-4f78-8ff3-5927a39c56dd.jpg.webp?ect=4g"
+    },
+    {
+      "id": 14,
+      "name": "Wuque Studio / WS Morandi Switch (Linear - PCB Mount)",
+      "category": "Keyboard Accessories",
+      "price": 6400,
+      "image": "https://images.tokopedia.net/img/cache/700/VqbcmM/2023/4/15/b9267735-23dd-43da-8c90-898b151e1a22.jpg.webp?ect=4g"
+    },
+    {
+      "id": 15,
+      "name": "MATCHA PBT Dye Sub Keycaps by Press Play",
+      "category": "Keyboard Accessories",
+      "price": 449000,
+      "image": "https://images.tokopedia.net/img/cache/700/VqbcmM/2023/9/1/b50fbb0e-c36e-4d91-933e-7e9c66ee3c3e.jpg.webp?ect=4g"
+    },
+    {
+      "id": 16,
+      "name": "Tenjin Scrollworks - KANSHA Dark Deskmat",
+      "category": "Keyboard Accessories",
+      "price": 269000,
+      "image": "https://images.tokopedia.net/img/cache/700/VqbcmM/2023/3/11/b9e4d8f9-d703-4f13-a2a7-78c1875b8dce.png.webp?ect=4g"
     }
   ]
 }
