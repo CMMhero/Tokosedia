@@ -71,10 +71,15 @@ $("#nav-logout").click(function () {
   window.location.href = "login.html";
 });
 
+function removeModal(id) {
+  $(`#${id}`).remove();
+}
+
 function transactionNotification(amount) {
+  modalId = `transaction-modal-${toastCount++}`
   html =
     `
-    <div class="modal fade" id="transaction-modal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal fade" id="${modalId}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header border-0">
@@ -85,7 +90,7 @@ function transactionNotification(amount) {
             Congratulations ${username}!<br/>Your transaction of <strong>${formatPrice(amount)}</strong> is successful.
           </div>
           <div class="modal-footer border-0">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="removeModal('${modalId}')">OK</button>
             <a href="index.html" type="button" class="btn btn-primary">Shop Again</a>
           </div>
         </div>
@@ -95,7 +100,7 @@ function transactionNotification(amount) {
 
   $("body").append(html);
 
-  $('#transaction-modal').modal('show');
+  $(`#${modalId}`).modal('show');
 }
 
 function topUp() {
@@ -159,23 +164,20 @@ async function loadData() {
   });
 }
 
-async function loadRecommended(categories) {
-  $("#recommended-items").html("");
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
 
+async function loadRecommended() {
   const response = await fetch("data.json");
   const data = await response.json();
   items = data.products;
-  let recommendedItems = [];
 
-  if (!categories.length) {
-    recommendedItems = items;
-  } else {
-    recommendedItems = items.filter(item => categories.includes(item.category) && !cart.some(cartItem => cartItem.id == item.id));
-  }
-
-  if (!recommendedItems.length) {
-    recommendedItems = items;
-  }
+  shuffle(items);
+  let recommendedItems = items.slice(0, 8);
 
   recommendedItems.forEach(item => {
     $("#recommended-items").append(
@@ -286,7 +288,7 @@ function checkItemCart(itemId) {
 
 function deleteItemFromCart(itemId, button) {
   cart = cart.filter(item => item.id != itemId);
-  $(button).closest('div.cart-item').fadeOut(500, function () {
+  $(button).closest('div.cart-item').fadeOut(function () {
     $(this).remove();
   });
 
@@ -296,33 +298,72 @@ function deleteItemFromCart(itemId, button) {
   saveCart();
   updateTotal();
 
-  if (!cart.length) loadCartItems();
+  if (!cart.length) {
+    $("#cart-empty").fadeIn();
+  }
 }
 
 function formatPrice(price) {
   return "Rp " + new Intl.NumberFormat('id-ID').format(price);
 }
 
-function addToCart(item) {
+function addToCart(id) {
   if (isLoggedIn == "false") window.location.href = "login.html";
 
-  existingItem = cart.find(cartItem => cartItem.id == item);
+  existingItem = cart.find(cartItem => cartItem.id == id);
 
-  const quantity = parseInt($(`#${item}-quantity`).val());
+  const quantity = parseInt($(`#${id}-quantity`).val());
 
   if (existingItem) {
     existingItem.quantity += quantity;
     existingItem.checked = true;
+    $(`#${id}-cart-quantity`).val(existingItem.quantity);
+    $(`#cart-item-${id}-checkbox`).prop('checked', true);
   } else {
-    newItem = { id: item, quantity: quantity, checked: true };
+    newItem = { id: id, quantity: quantity, checked: true };
     cart.push(newItem);
+    cartAppend(id, newItem);
   }
 
-  cartNotification(item, quantity);
+  if (cart.length) {
+    $("#cart-empty").fadeOut();
+  }
+
+  cartNotification(id, quantity);
   updateCart();
   saveCart();
+  updateTotal();
+}
 
-  loadCartItems();
+async function cartAppend(id, item) {
+  itemDetail = await findCartItemById(id);
+
+  cartItem = $(`
+      <div class="mb-3 cart-item" id="cart-item-id-${item.id}">
+        <div class="card rounded-4 shadow-sm">
+          <div class="d-flex p-3 align-items-center overflow-hidden">
+            <input id="cart-item-${item.id}-checkbox" class="form-check-input border-secondary border-2 me-3" type="checkbox" ${item.checked == true ? 'checked' : 'unchecked'} onchange="checkItemCart('${item.id}')">
+            <img class="img-fluid rounded item-thumbnail-small border shadow-sm" src="${itemDetail.image}" alt="${itemDetail.name}" />
+            <div class="ms-3 ms-lg-4">
+              <h6 class="card-title fw-bolder">${itemDetail.name}</h6>
+              <p class="card-text">${formatPrice(itemDetail.price)}</p>
+              <div class="d-flex">
+              <div class="input-group border rounded p-0 input-cart">
+                <button class="btn btn-sm bi-dash px-1" onclick="decrementQuantityCart('${item.id}')"></button>
+                <input type="number" class="input-number form-control bg-transparent text-center border-0" id="${item.id}-cart-quantity" value="${item.quantity}" min="1" onchange="updateQuantityCart('${item.id}')">
+                <button class="btn btn-sm bi-plus px-1" onclick="incrementQuantityCart('${item.id}')"></button>
+              </div>
+              <button class="btn btn-outline-danger ms-2" onclick="deleteItemFromCart('${item.id}', this)">
+                <i class="bi-trash-fill"></i>
+              </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `).hide().fadeIn()
+
+  $("#cart-items").append(cartItem);
 }
 
 function checkOut(price) {
@@ -335,36 +376,40 @@ function checkOut(price) {
     return;
   }
 
+  cart.forEach(async item => {
+    if (item.checked) {
+      $(`#cart-item-id-${item.id}`).fadeOut(function() {
+        $(this).remove();
+      });
+    }
+  });
+  cart = cart.filter(item => !item.checked);
+  saveCart();
+  updateCart();
+
+  if (!cart.length) {
+    $("#cart-empty").fadeIn();
+  }
+
   balance -= price;
   saveBalance();
-  cart = cart.filter(item => !item.checked);
-  updateCart();
-  saveCart();
-
+  
   loadCart();
-  loadCartItems();
   loadBalance();
 
   transactionNotification(price);
 }
 
 async function loadCartItems() {
-  let categories = [];
-  $("#cart-items").html("");
-
   cart.forEach(async item => {
     itemDetail = await findCartItemById(item.id);
-
-    if (!categories.includes(itemDetail.category)) {
-      categories.push(itemDetail.category);
-    }
 
     $("#cart-items").append(
       `
         <div class="mb-3 cart-item" id="cart-item-id-${item.id}">
           <div class="card rounded-4 shadow-sm">
             <div class="d-flex p-3 align-items-center overflow-hidden">
-              <input class="form-check-input border-secondary border-2 me-3" type="checkbox" ${item.checked == true ? 'checked' : 'unchecked'} onchange="checkItemCart('${item.id}')">
+              <input id="cart-item-${item.id}-checkbox" class="form-check-input border-secondary border-2 me-3" type="checkbox" ${item.checked == true ? 'checked' : 'unchecked'} onchange="checkItemCart('${item.id}')">
               <img class="img-fluid rounded item-thumbnail-small border shadow-sm" src="${itemDetail.image}" alt="${itemDetail.name}" />
               <div class="ms-3 ms-lg-4">
                 <h6 class="card-title fw-bolder">${itemDetail.name}</h6>
@@ -387,22 +432,13 @@ async function loadCartItems() {
     );
   })
 
-  if (!cart.length) {
-    $("#cart-items").append(
-      `
-      <div class="mb-3">
-        <div class="card rounded-4 shadow-sm">
-          <div class="p-3 align-items-center">
-            <h5>You have no items in your cart</h5>
-            Start by adding some recommended items
-          </div>
-        </div>
-      </div>
-      `
-    );
+  if (cart.length) {
+    $("#cart-empty").fadeOut();
+  } else {
+    $("#cart-empty").fadeIn();
   }
 
-  loadRecommended(categories);
+  loadRecommended();
   updateTotal();
 }
 
