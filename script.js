@@ -397,6 +397,8 @@ function checkOut(price) {
   loadCart();
   loadBalance();
 
+  updateTotal();
+
   transactionNotification(price);
 }
 
