@@ -3,9 +3,6 @@ nav {
 	backdrop-filter: blur(16px);
 }
 
-#loginCard {
-}
-
 .item-thumbnail {
 	object-fit: cover;
 	height: 240px;
@@ -41,5 +38,5 @@ nav {
 
 .sticky-div {
 	position: sticky;
-	top: 100px; /* Adjust this value to match the height of the navbar */
+	top: 120px;
 }
