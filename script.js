@@ -4,7 +4,7 @@ let balance = localStorage.getItem("balance") || 1000000;
 let cart = localStorage.getItem("cart") || [];
 let cartLength = 0;
 
-getData();
+loadData();
 loadNavbar();
 loadCart();
 loadCartItems();
@@ -51,7 +51,7 @@ $(".cart-item-quantity").change(function () {
   updateCart();
 });
 
-async function getData() {
+async function loadData() {
   const response = await fetch("data.json");
   const data = await response.json();
   items = data.products;
@@ -104,7 +104,7 @@ function decrementQuantity(itemId) {
 }
 
 function incrementQuantityCart(itemId) {
-  let quantity = $(`#${itemId}-quantity`);
+  let quantity = $(`#${itemId}-cart-quantity`);
   let currentQuantity = parseInt(quantity.val());
   quantity.val(currentQuantity + 1);
 
@@ -119,7 +119,7 @@ function incrementQuantityCart(itemId) {
 }
 
 function decrementQuantityCart(itemId) {
-  let quantity = $(`#${itemId}-quantity`);
+  let quantity = $(`#${itemId}-cart-quantity`);
   let currentQuantity = parseInt(quantity.val());
 
   if (currentQuantity <= 1) return
@@ -136,7 +136,7 @@ function decrementQuantityCart(itemId) {
 }
 
 function updateQuantityCart(itemId) {
-  let quantity = $(`#${itemId}-quantity`);
+  let quantity = $(`#${itemId}-cart-quantity`);
   let currentQuantity = parseInt(quantity.val());
 
   if (currentQuantity <= 0) return;
@@ -197,6 +197,31 @@ function addToCart(item) {
   cartNotification(item, quantity);
   updateCart();
   saveCart();
+
+  loadCartItems();
+}
+
+function checkOut(price) {
+  if (price == 0) {
+    return;
+  }
+
+  if (balance < price) {
+    alert("Balance is not sufficient")
+    return;
+  }
+
+  balance -= price;
+  saveBalance();
+  cart = cart.filter(item => !item.checked);
+  updateCart();
+  saveCart();
+
+  loadCart();
+  loadCartItems();
+  loadBalance();
+
+  alert('Transaction successful. Thank you for your purchase!');
 }
 
 async function loadCartItems() {
@@ -219,7 +244,7 @@ async function loadCartItems() {
                 <div class="d-flex">
                 <div class="input-group border rounded p-0 input-cart">
                   <button class="btn btn-sm bi-dash" onclick="decrementQuantityCart('${item.id}')"></button>
-                  <input type="number" class="input-number form-control bg-transparent text-center border-0" id="${item.id}-quantity" value="${item.quantity}" min="1" onchange="updateQuantityCart('${item.id}')">
+                  <input type="number" class="input-number form-control bg-transparent text-center border-0" id="${item.id}-cart-quantity" value="${item.quantity}" min="1" onchange="updateQuantityCart('${item.id}')">
                   <button class="btn btn-sm bi-plus" onclick="incrementQuantityCart('${item.id}')"></button>
                 </div>
                 <button class="btn btn-outline-danger ms-2" onclick="deleteItemFromCart('${item.id}', this)">
@@ -267,10 +292,29 @@ async function updateTotal() {
   $("#total").html(
     `
       <div class="sticky-div">
-        <div class="card mb-4 h-100 rounded-4 shadow">
+        <div class="card mb-4 h-100 rounded-4 shadow-sm">
           <div class="card-body">
-            <h6 class="card-title fw-bolder">${totalItems} Items</h6>
-            <p class="card-text">${formatPrice(totalPrice)}</p>
+            <h5 class="card-title fw-bolder">Order Summary</h5>
+            <hr/>
+            <div class="d-flex">
+              <div>
+                Items
+              </div>
+              <div class="ms-auto">
+                ${totalItems}
+              </div>
+            </div>
+            <div class="d-flex">
+              <div>
+                <b class="fw-bolder">Total</b>
+              </div>
+              <div class="ms-auto">
+                <b class="fw-bolder">${formatPrice(totalPrice)}</b>
+              </div>
+            </div>
+            <button id="checkout" class="btn btn-success mt-2 bi-cart-fill" onclick="checkOut(${totalPrice})">
+              Checkout
+            </button>
           </div>
         </div>
       </div>
@@ -278,7 +322,7 @@ async function updateTotal() {
   );
 }
 
-let toastCount = 0; // Counter for unique toast IDs
+let toastCount = 0;
 
 async function cartNotification(id, quantity) {
   const item = await findCartItemById(id);
@@ -334,6 +378,10 @@ function loadCart() {
 
 function loadBalance() {
   $("#balance").text(formatPrice(balance));
+}
+
+function saveBalance() {
+  localStorage.setItem("balance", balance)
 }
 
 function loadNavbar() {
