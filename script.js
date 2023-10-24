@@ -71,11 +71,9 @@ $("#nav-logout").click(function () {
   window.location.href = "login.html";
 });
 
-let transactionModal = false;
 function transaction(amount) {
-  if (!transactionModal) {
-    html =
-      `
+  html =
+    `
     <div class="modal fade" id="transaction-modal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -95,10 +93,7 @@ function transaction(amount) {
     </div>
     `
 
-    $("body").append(html);
-  } else {
-    $("#transaction-modal-text").value("Nice");
-  }
+  $("body").append(html);
 
   $('#transaction-modal').modal('show');
 }
