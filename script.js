@@ -24,10 +24,9 @@ $("#loginForm").submit(function (event) {
 
 let topupModal = false;
 $("#nav-balance").click(function () {
-
   if (!topupModal) {
-    html = 
-    `
+    html =
+      `
     <div class="modal fade" id="topup-modal" tabindex="-1">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -72,12 +71,44 @@ $("#nav-logout").click(function () {
   window.location.href = "login.html";
 });
 
+let transactionModal = false;
+function transaction(amount) {
+  if (!transactionModal) {
+    html =
+      `
+    <div class="modal fade" id="transaction-modal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header border-0">
+            <h1 class="modal-title fs-5">Transaction Successful</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Congratulations ${username}!<br/>Your transaction of <strong>${formatPrice(amount)}</strong> is successful.
+          </div>
+          <div class="modal-footer border-0">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
+            <a href="index.html" type="button" class="btn btn-primary">Shop Again</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    `
+
+    $("body").append(html);
+  } else {
+    $("#transaction-modal-text").value("Nice");
+  }
+
+  $('#transaction-modal').modal('show');
+}
+
 function topUp() {
   const amount = parseInt($("#topup-amount").val());
   if (isNaN(amount) || amount == 0) return;
 
   const bal = parseInt(balance);
-  
+
   balance = bal + amount;
 
   saveBalance();
@@ -85,8 +116,12 @@ function topUp() {
 
   $('#topup-modal').modal('hide');
 
+  topUpNotification();
+}
+
+function topUpNotification() {
   const toastId = `topup-toast-${toastCount++}`;
-  
+
   const alertHtml = `
     <div class="toast text-bg-success" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="2000" id="${toastId}">
       <div class="d-flex">
@@ -336,7 +371,7 @@ function checkOut(price) {
   loadCartItems();
   loadBalance();
 
-  alert('Transaction successful. Thank you for your purchase!');
+  transaction(price);
 }
 
 async function loadCartItems() {
@@ -432,9 +467,9 @@ async function updateTotal() {
                 <b class="fw-bolder">${formatPrice(totalPrice)}</b>
               </div>
             </div>
-            <button id="checkout" class="btn btn-success mt-2 bi-cart-fill" onclick="checkOut(${totalPrice})">
+            ${totalItems > 0 && totalPrice > 0 ? `            <button id="checkout" class="btn btn-success mt-2 bi-cart-fill" onclick="checkOut(${totalPrice})">
               Checkout
-            </button>
+            </button>` : ``}
           </div>
         </div>
       </div>
