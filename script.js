@@ -3,6 +3,7 @@ let username = localStorage.getItem("username") || "";
 let balance = localStorage.getItem("balance") || 1000000;
 let cart = localStorage.getItem("cart") || [];
 let cartLength = 0;
+let toastCount = 0;
 
 loadData();
 loadNavbar();
@@ -21,6 +22,41 @@ $("#loginForm").submit(function (event) {
   window.location.href = "index.html";
 });
 
+let topupModal = false;
+$("#nav-balance").click(function () {
+
+  if (!topupModal) {
+    html = 
+    `
+    <div class="modal fade" id="topup-modal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header border-0">
+            <h1 class="modal-title fs-5">Topup Balance</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="input-group">
+              <span class="input-group-text">Rp</span>
+              <input type="number" id="topup-amount" class="form-control input-number" aria-label="Topup Balance">
+            </div>
+          </div>
+          <div class="modal-footer border-0">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" onclick="topUp()">Topup</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    `
+
+    $("body").append(html);
+    topupModal = true;
+  }
+
+  $('#topup-modal').modal('show');
+})
+
 $("#nav-cart").click(function () {
   if (isLoggedIn == "false") return window.location.href = "login.html";
   window.location.href = "cart.html";
@@ -35,6 +71,39 @@ $("#nav-logout").click(function () {
   localStorage.setItem("username", "");
   window.location.href = "login.html";
 });
+
+function topUp() {
+  const amount = parseInt($("#topup-amount").val());
+  if (isNaN(amount) || amount == 0) return;
+
+  const bal = parseInt(balance);
+  
+  balance = bal + amount;
+
+  saveBalance();
+  loadBalance();
+
+  $('#topup-modal').modal('hide');
+
+  const toastId = `topup-toast-${toastCount++}`;
+  
+  const alertHtml = `
+    <div class="toast text-bg-success" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="2000" id="${toastId}">
+      <div class="d-flex">
+        <div class="toast-body">
+          <i class="bi-check-circle-fill me-2"></i>
+          Topup of <strong>${formatPrice(amount)}</strong> successful.
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  `;
+
+  $('#notification').append(alertHtml);
+
+  const toastElement = $(`#${toastId}`);
+  bootstrap.Toast.getOrCreateInstance(toastElement).show();
+}
 
 function loadHeader() {
   if (isLoggedIn == "false") return;
@@ -212,6 +281,8 @@ function deleteItemFromCart(itemId, button) {
     $(this).remove();
   });
 
+  deleteNotification(itemId);
+
   updateCart();
   saveCart();
   updateTotal();
@@ -371,8 +442,6 @@ async function updateTotal() {
   );
 }
 
-let toastCount = 0;
-
 async function cartNotification(id, quantity) {
   const item = await findCartItemById(id);
 
@@ -384,6 +453,29 @@ async function cartNotification(id, quantity) {
         <div class="toast-body">
           <i class="bi-check-circle-fill me-2"></i>
           Added ${quantity}x <strong>${item.name}</strong> to cart!
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  `;
+
+  $('#notification').append(alertHtml);
+
+  const toastElement = $(`#${toastId}`);
+  bootstrap.Toast.getOrCreateInstance(toastElement).show();
+}
+
+async function deleteNotification(id) {
+  const item = await findCartItemById(id);
+
+  const toastId = `cart-toast-${toastCount++}`;
+
+  const alertHtml = `
+    <div class="toast text-bg-danger" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="2000" id="${toastId}">
+      <div class="d-flex">
+        <div class="toast-body">
+          <i class="bi-check-circle-fill me-2"></i>
+          Deleted <strong>${item.name}</strong> from cart
         </div>
         <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>

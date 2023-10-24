@@ -28,6 +28,10 @@ nav {
 	margin: 0;
 }
 
+.input-number:focus {
+	box-shadow: none;
+} 
+
 .promo-image {
 	object-fit: cover;
 }
